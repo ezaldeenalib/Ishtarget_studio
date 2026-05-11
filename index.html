@@ -8,7 +8,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Cinzel:wght@400;500;600&family=Inter:wght@300;400&family=Cairo:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Cinzel:wght@400;500;600&family=Inter:wght@300;400&family=IBM+Plex+Sans+Arabic:wght@300;400;500;600&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
   <style>
     /* ── DESIGN TOKENS ─────────────────────────────────────────── */
@@ -34,7 +34,8 @@
       --font-display: 'Cinzel', 'Georgia', serif;
       --font-serif:   'Cormorant Garamond', 'Georgia', serif;
       --font-sans:    'Inter', sans-serif;
-      --font-arabic:  'Cairo', sans-serif;
+      --font-arabic:  'IBM Plex Sans Arabic', sans-serif;
+      --font-arabic-display: 'Noto Naskh Arabic', serif;
 
       --ease-luxury:    cubic-bezier(0.25, 0.46, 0.45, 0.94);
       --ease-cinematic: cubic-bezier(0.16, 1, 0.3, 1);
@@ -58,25 +59,29 @@
     /* ── ARABIC (RTL) ───────────────────────────────────────────── */
     html[lang="ar"] body {
       font-family: var(--font-arabic);
+      font-weight: 300;
     }
     html[lang="ar"] .nav__logo-name {
-      font-family: var(--font-arabic);
+      font-family: var(--font-arabic-display);
       letter-spacing: 0;
-      font-size: 15px;
+      font-size: 17px;
+      font-weight: 600;
     }
     html[lang="ar"] .nav__logo-sub {
       font-family: var(--font-arabic);
       letter-spacing: 0;
-      font-size: 10px;
+      font-size: 11px;
+      font-weight: 400;
     }
     html[lang="ar"] .hero__title,
     html[lang="ar"] .section__title,
     html[lang="ar"] .booking-cta__title,
     html[lang="ar"] .about__quote {
-      font-family: var(--font-arabic);
+      font-family: var(--font-arabic-display);
       font-style: normal;
-      font-weight: 300;
+      font-weight: 500;
       letter-spacing: 0;
+      line-height: 1.35;
     }
     html[lang="ar"] .hero__title em,
     html[lang="ar"] .section__title em,
@@ -95,16 +100,20 @@
     html[lang="ar"] .nav__cta span {
       letter-spacing: 0 !important;
       font-family: var(--font-arabic);
+      font-weight: 400;
       text-transform: none !important;
     }
     html[lang="ar"] .testimonial-card__text {
-      font-family: var(--font-arabic);
+      font-family: var(--font-arabic-display);
       font-style: normal;
+      font-weight: 400;
+      line-height: 2;
     }
     html[lang="ar"] .testimonial-card__author {
       font-family: var(--font-arabic);
       letter-spacing: 0;
       text-transform: none;
+      font-weight: 500;
     }
     html[lang="ar"] .about__text,
     html[lang="ar"] .step__desc,
@@ -115,12 +124,15 @@
     html[lang="ar"] .about__signature {
       font-family: var(--font-arabic);
       letter-spacing: 0;
+      font-weight: 300;
+      line-height: 2;
     }
     html[lang="ar"] .portfolio-item__category,
     html[lang="ar"] .portfolio-item__title {
-      font-family: var(--font-arabic);
+      font-family: var(--font-arabic-display);
       font-style: normal;
       letter-spacing: 0;
+      font-weight: 500;
     }
     html[lang="ar"] .hero__eyebrow span {
       font-family: var(--font-arabic);
@@ -1244,6 +1256,8 @@
 
   /* ── LANGUAGE SWITCHER ─────────────────────────────────── */
   let currentLang = localStorage.getItem('igs_lang') || 'en';
+  let currentSlide = 0;
+  let autoSlideTimer;
 
   function setLanguage(lang) {
     currentLang = lang;
@@ -1389,8 +1403,6 @@
   /* ── Testimonial slider ──────────────────────────────── */
   const track = document.getElementById('testimonialTrack');
   const dots  = document.querySelectorAll('.testimonials__dot');
-  let currentSlide = 0;
-  let autoSlideTimer;
 
   function goToSlide(index) {
     currentSlide = index;
